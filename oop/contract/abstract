@@ -1,0 +1,66 @@
+<?php
+
+abstract class onlineGateway
+{
+
+    protected $options;
+
+    public function __construct()
+    {
+        $this->options = array(
+            'mellat' => array(
+                'merchant' => '1234567',
+                'username' => 'fjowif94',
+                'password' => 'lfdksfj4'
+            ),
+            'saman' => array(
+                'api_key' => '948038594dfs0vdvxve098d'
+            ),
+            'parsian' => array(
+                'username' => 'klsdjfkdl4',
+                'password' => 'klfjdkfj4t64')
+        );
+    }
+
+    abstract public function sendRequest();
+
+    abstract public function verifyRequest();
+}
+
+class Mellat extends onlineGateway
+{
+    private $gatewayName;
+    private $mellat_options;
+    public function __construct()
+    {
+        $this->gatewayName='mellat';
+        parent::__construct();
+//        inja construct parent meghdar migirad
+        $this->mellat_options = $this->options[$this->gatewayName];
+    }
+    public function sendRequest()
+    {
+        var_dump($this->mellat_options);
+    }
+
+    public function verifyRequest()
+    {
+        // TODO: Implement verifyRequest() method.
+    }
+}
+
+//$mellat = new Mellat(); /* yek object jadid az Mellate create mikonad */
+//$mellat->sendRequest();
+$gateway = factory::make('mellat');
+$gateway-> sendRequest();
+class factory{
+    public static function make($class)
+    {
+        $className = ucfirst($class);
+        if (!class_exists($className)){
+            return false ;
+        }
+        return new $className;
+    }
+
+}
